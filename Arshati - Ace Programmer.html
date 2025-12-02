@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kokani Saaj —  </title>
+
+<style>
+/* -------------------- GENERAL -------------------- */
+* {margin:0;padding:0;box-sizing:border-box;}
+body {font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:#dff7f2; color:#050A30; overflow-x:hidden; scroll-behavior:smooth;}
+a {text-decoration:none;}
+section {display:none; padding:80px 20px; min-height:100vh; position:relative; transition:all 1s ease;}
+.active-section {display:block; animation:fadeIn 1s;}
+@keyframes fadeIn {from {opacity:0; transform:translateY(50px);} to {opacity:1; transform:translateY(0);}}
+
+/* -------------------- NAVBAR -------------------- */
+.navbar {display:flex;justify-content:space-between;align-items:center;padding:20px 40px;background:rgba(255,255,255,0.8);position:fixed;width:100%;z-index:100;backdrop-filter:blur(10px);box-shadow:0 2px 10px rgba(0,0,0,0.2);}
+.navbar .logo {font-size:28px;font-weight:bold;color:#996633;letter-spacing:2px;}
+.nav-links {display:flex;gap:25px;list-style:none;}
+.nav-links a {color:#050A30;font-weight:500;cursor:pointer;position:relative; transition:0.3s;}
+.nav-links a.active, .nav-links a:hover {color:#996633;}
+.nav-links a::after {content:'';height:2px;width:0;background:#996633;position:absolute;bottom:-5px;left:0;transition:0.3s;}
+.nav-links a:hover::after, .nav-links a.active::after {width:100%;}
+
+/* -------------------- HERO -------------------- */
+.hero {
+    height: 100vh;
+    /* Updated background with background-blend-mode for a bolder look */
+    background: linear-gradient(rgba(223, 247, 242, 0.7), rgba(223, 247, 242, 0.7)), url('food.jpg') center/cover no-repeat;
+    background-position: center 20%; /* Adjusted for better focus */
+    background-blend-mode: multiply; /* Makes the image bolder */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+.hero h1 {font-size:60px; color:#FFFFFF; margin-bottom:20px; text-shadow: 2px 2px 8px #fff; animation:glow 2s ease-in-out infinite alternate;}
+.hero p {font-size:24px; max-width:700px; margin-bottom:40px; text-shadow:1px 1px 5px #fff;}
+.btn {padding:15px 30px; background:#FF8C00; color:#fff; font-weight:bold; border-radius:8px; font-size:18px; cursor:pointer; box-shadow:0 0 20px #FF8C00; transition:0.3s;}
+.btn:hover {transform:scale(1.1); box-shadow:0 0 40px #FF8C00;}
+@keyframes glow {0% {text-shadow:0 0 5px #FF8C00;} 100% {text-shadow:0 0 30px #996633;}}
+
+/* -------------------- PAGE HEADERS -------------------- */
+.page-header {text-align:center; margin-bottom:50px;}
+.page-header h1 {color:#996633; font-size:48px; margin-bottom:15px; letter-spacing:1px;}
+.page-header p {font-size:20px; color:#050A30; opacity:0.9;}
+
+
+/* -------------------- SERVICES (FIXED TO HORIZONTAL) -------------------- */
+.service-grid {
+    display:flex; /* Changed to flex for horizontal alignment */
+    flex-wrap: wrap; /* Allows wrapping on smaller screens */
+    justify-content: center; /* Center items horizontally */
+    gap:30px;
+    max-width: 1200px; 
+    margin: auto;
+}
+.service-card {
+    background:#e0f2ef; 
+    padding:30px; 
+    border-radius:15px; 
+    text-align:center; 
+    box-shadow:0 0 20px rgba(255,140,0,0.2); 
+    transition:all 0.5s;
+    flex: 1 1 200px; /* Allows cards to shrink/grow but maintains a min width */
+    max-width: 250px;
+}
+.service-card:hover {transform:translateY(-10px); box-shadow:0 0 40px rgba(255,140,0,0.6);}
+.service-card h3 {color:#996633; margin-bottom:15px; font-size:22px;}
+.service-card p {color:#050A30; opacity:0.9;}
+
+/* -------------------- MENU -------------------- */
+.menu-section {max-width:1000px;margin:auto;}
+.menu-category {margin-bottom:50px;}
+.menu-category h2 {color:#996633; margin-bottom:20px; font-size:32px; text-align:center;}
+.menu-item {display:flex;justify-content:space-between;align-items:center; padding:12px 0; border-bottom:1px solid rgba(0,0,0,0.1); opacity:0; transform:translateX(-50px); transition:all 0.6s ease;}
+.menu-item.show {opacity:1; transform:translateX(0);}
+.menu-item h4 {font-size:20px;}
+.menu-item p {font-size:16px; opacity:0.8; margin-top:5px;}
+.menu-item span {color:#996633; font-weight:bold;}
+.menu-item img {width:80px; height:80px; object-fit:cover; border-radius:8px; margin-right:15px;}
+
+/* -------------------- CONTACT & BOOKING & DIRECTIONS -------------------- */
+.contact-form, .booking-form {max-width:500px;margin:auto; display:flex; flex-direction:column; gap:15px;}
+input, textarea, select {padding:12px; border-radius:8px; border:1px solid #ccc; outline:none;}
+textarea {resize:none; height:120px;}
+button.form-btn {padding:15px; border:none; border-radius:8px; background:#996633; color:#fff; font-weight:bold; cursor:pointer; font-size:18px; transition:0.3s; box-shadow:0 0 20px #996633;}
+button.form-btn:hover {transform:scale(1.05); box-shadow:0 0 40px #996633;}
+
+/* -------------------- FLOATING PARTICLES (REMOVED) -------------------- */
+/* .particle and @keyframes float have been removed */
+</style>
+
+<script>
+// NAVIGATION
+function showPage(page){
+    document.querySelectorAll("section").forEach(s=>s.classList.remove("active-section"));
+    document.getElementById(page).classList.add("active-section");
+    document.querySelectorAll(".nav-links a").forEach(a=>a.classList.remove("active"));
+    document.getElementById("nav-"+page).classList.add("active");
+    if(page==="menu") animateMenu();
+}
+
+// MENU ANIMATION
+function animateMenu(){
+    const items = document.querySelectorAll('.menu-item');
+    items.forEach((item,i)=>{
+        setTimeout(()=>{item.classList.add('show');}, i*200);
+    });
+}
+
+
+
+// POPUP MESSAGES
+function handleBooking(e){
+    alert("Congratulations! Your table is booked successfully!");
+    setTimeout(() => {
+        e.target.reset();
+    }, 100); 
+}
+
+function handleContact(e){
+    e.preventDefault();
+    alert("Thank you so much for your feedback, your message has been sent!");
+    e.target.reset();
+}
+
+// DIRECTIONS FUNCTION
+function handleDirections(e){
+    e.preventDefault();
+    const origin = document.getElementById('origin-input').value;
+    const mode = document.getElementById('travel-mode-select').value;
+    
+    // Assumed Restaurant Location in Ratnagiri based on menu
+    const destination = encodeURIComponent("Kokani Saaj, Bandra Kurla Complex, Mumbai, India");
+
+    // Construct the Google Maps Directions URL (using data=!4m2!4m1!3e1 for better map display)
+    const mapsUrl = `https://www.google.com/maps/dir/${encodeURIComponent(origin)}/${destination}/data=!4m2!4m1!3e1?travelmode=${mode}`;
+
+    // Open the maps link in a new tab
+    window.open(mapsUrl, '_blank');
+
+    alert(`Opening Google Maps with your route for ${mode} in a new tab!`);
+}
+</script>
+</head>
+
+<body>
+
+<nav class="navbar">
+  <div class="logo">Kokani Saaj</div>
+  <ul class="nav-links">
+    <li><a id="nav-home" class="active" onclick="showPage('home')">Home</a></li>
+    <li><a id="nav-about" onclick="showPage('about')">About</a></li>
+    <li><a id="nav-menu" onclick="showPage('menu')">Menu</a></li>
+    <li><a id="nav-services" onclick="showPage('services')">Services</a></li>
+    <li><a id="nav-book" onclick="showPage('book')">Book a Table</a></li>
+    <li><a id="nav-directions" onclick="showPage('directions')">Get Directions</a></li>
+    <li><a id="nav-contact" onclick="showPage('contact')">Contact</a></li>
+  </ul>
+</nav>
+
+<section id="home" class="active-section">
+  <div class="hero">
+    <h1>Kokani Saaj</h1>
+    <p>The Splendors Of Konkan</p>
+    <button class="btn" onclick="showPage('about')">Discover More</button>
+  </div>
+</section>
+
+<section id="about">
+  <div class="page-header">
+    <h1>About Our Restaurant</h1>
+  </div>
+  <p style="max-width:800px;margin:auto;margin-top:30px;font-size: 20px;"">
+    Kokani Saaj is a restaurant dedicated to serve healthy and hygeinic food to every customer. The chef wants to promote the delightful taste of kokani food made with love. The food here is made of traditional recipes with a hint of modern. It is built on the seashore to let you enjoy food with the beauty of nature.</p>
+</section>
+
+<section id="menu">
+  <div class="page-header">
+    <h1>Our Menu</h1>
+    <p>Indulge in our signature dishes and curated tasting experiences.</p>
+  </div>
+
+  <div class="menu-section">
+        <div class="menu-category">
+      <h2>Vegetarian</h2>
+      <div class="menu-item"><img src="bhakri.jpg" alt="Bhakri"><div><h4>Bhakri</h4></div><span>₹20 (1)<span></div>
+      <div class="menu-item"><img src="chapati.jpg" alt="Chapati"><div><h4>Chapati</h4></div><span>₹10 (1)<span></div>
+      <div class="menu-item"><img src="Ghavan.jpg" alt="Ghavan with Chutney"><div><h4>Ghavan with Chutney</h4></div><span>₹100</span></div>
+      <div class="menu-item"><img src="mix veg biryani.jpg" alt="Mix Veg Biryani"><div><h4>Mix Veg Biryani</h4></div><span>₹250</span></div>
+      <div class="menu-item"><img src="paneer biryani.jpg" alt="Paneer Biryani"><div><h4>Paneer Biryani</h4></div><span>₹280</span></div>
+      <div class="menu-item"><img src="chole.jpg" alt="Chole"><div><h4>Chole Bhature</h4></div><span>₹280<span></div>
+      <div class="menu-item"><img src="shahi paneer.jpg" alt="Shahi Paneer"><div><h4>Shahi Paneer</h4></div><span>₹300</span></div>
+      <div class="menu-item"><img src="mushroom.jpg" alt="Mushroom"><div><h4>Mushroom</h4></div><span>₹220</span></div>
+    </div>
+
+         <div class="menu-category">
+      <h2>Desserts</h2>
+      <div class="menu-item"><img src="puran poli.jpg" alt="Puran Poli"><div><h4>Puran Poli</h4></div><span>₹150</span></div>
+      <div class="menu-item"><img src="rice kheer.jpg" alt="Rice kheer"><div><h4>Rice Kheer</h4></div><span>₹120</span></div>
+      <div class="menu-item"><img src="modak.jpg" alt="modak"><div><h4>Modak</h4></div><span>₹130</span></div>
+      <div class="menu-item"><img src="Tiramisu.jpg" alt="Tiramisu"><div><h4>Tiramisu</h4></div><span>₹300</span></div>
+    </div>
+
+
+        <div class="menu-category">
+      <h2>Non-Vegetarian</h2>
+      <div class="menu-item"><img src="crab.jpg" alt="Crab  Masala"><div><h4>Crab</h4></div><span>₹450</span></div>
+      <div class="menu-item"><img src="prawns.jpg" alt="Prawns 65"><div><h4>Prawns</h4></div><span>₹400</span></div>
+      <div class="menu-item"><img src="sea urchin.jpg" alt="Sea Urchin"><div><h4>Sea Urchin</h4></div><span>₹600</span></div>
+      <div class="menu-item"><img src="fish fry.jpg" alt="Fish Fry"><div><h4>Fish Fry</h4></div><span>₹350</span></div>
+      <div class="menu-item"><img src="egg biryani.jpg" alt="Egg Biryani"><div><h4>Egg Biryani</h4></div><span>₹280</span></div>
+      <div class="menu-item"><img src="chicken biryani.jpg" alt="Chicken Biryani"><div><h4>Chicken Biryani</h4></div><span>₹350</span></div>
+      <div class="menu-item"><img src="prawns biryani.jpg" alt="Prawns Biryani"><div><h4>Prawns Biryani</h4></div><span>₹400</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="page-header">
+    <h1>Our Services</h1>
+    <p>Exclusive experiences for you and your guests.</p>
+  </div>
+  <div class="service-grid">
+    <div class="service-card">
+        <h3>Hygiene Promise</h3>
+        <p>Safety First: A guarantee of hygiene while food preparation </p>
+    </div>
+    <div class="service-card">
+        <h3>Supporting Nature</h3>
+        <p>Using earthen materials instead of plastic</p>
+    </div>
+    <div class="service-card">
+        <h3>Fresh Serving</h3>
+        <p>No stored gravies, made when the booking is done to serve you hot</p>
+    </div>
+    <div class="service-card">
+        <h3>Chef Experiences</h3>
+        <p>6 years of cooking experience</p>
+    </div>
+  </div>
+</section>
+
+<section id="book">
+  <div class="page-header">
+    <h1>Reserve a Table</h1>
+    <p>Book your exclusive dining experience.</p>
+  </div>
+  <form id="bookingForm" class="booking-form" onsubmit="handleBooking(event)" action="https://docs.google.com/forms/d/e/1FAIpQLSchH4AVO9E6fDQr1QF53PFbAxF8YecOp1YKcG2uL2RTP7sv5A/formResponse" method="POST" target="hidden_frame">
+    <input type="text" placeholder="Your Name" required name="entry.586143677">
+    <input type="email" placeholder="Email Address" required name="entry.899852286">
+    <input type="date" required name="entry.321751066">
+    <input type="time" required name="entry.1619763212">
+    <select required name="entry.2094950380">
+      <option value="">Number of Guests</option>
+      <option value="1">1</option><option value="2">2</option>
+      <option value="3">3</option><option value="4">4</option>
+      <option value="5">5</option><option value="6+">6+</option>
+    </select>
+    <button type="submit" class="form-btn">Book Now</button>
+  </form>
+<iframe name="hidden_frame" id="hidden_frame" style="display:none"></iframe>
+</section>
+
+<section id="directions">
+  <div class="page-header">
+    <h1>Find Your Route</h1>
+    <p>Get directions to **Kokani Saaj** (Assumed location: Bandra Kurla Complex, Mumbai)</p>
+  </div>
+  <form class="booking-form" onsubmit="handleDirections(event)">
+    <input type="text" id="origin-input" placeholder="Enter Your Starting Location (e.g., Colaba, Mumbai)" required>
+    <select id="travel-mode-select" required>
+      <option value="driving">Driving 🚗</option>
+      <option value="transit">Transit 🚌/🚆</option>
+      <option value="walking">Walking 🚶</option>
+      <option value="bicycling">Bicycling 🚲</option>
+    </select>
+    <button type="submit" class="form-btn">Show Route on Map</button>
+  </form>
+</section>
+
+<section id="contact">
+  <div class="page-header">
+    <h1>Contact Us</h1>
+    <p>We’d love to hear from you.</p>
+  </div>
+  <form class="contact-form" onsubmit="handleContact(event)">
+    <input type="text" placeholder="Your Name" required>
+    <input type="email" placeholder="Email Address" required>
+    <textarea placeholder="Your Message" required></textarea>
+    <button type="submit" class="form-btn">Send Message</button>
+  </form>
+</section>
+
+</body>
+</html>
