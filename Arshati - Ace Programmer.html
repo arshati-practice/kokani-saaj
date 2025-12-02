@@ -50,28 +50,158 @@ section {display:none; padding:80px 20px; min-height:100vh; position:relative; t
 .page-header p {font-size:20px; color:#050A30; opacity:0.9;}
 
 
-/* -------------------- SERVICES (FIXED TO HORIZONTAL) -------------------- */
+/* -------------------- SERVICES — PREMIUM UPGRADE -------------------- */
 .service-grid {
-    display:flex; /* Changed to flex for horizontal alignment */
-    flex-wrap: wrap; /* Allows wrapping on smaller screens */
-    justify-content: center; /* Center items horizontally */
-    gap:30px;
-    max-width: 1200px; 
-    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 35px;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px 10px;
 }
+
 .service-card {
-    background:#e0f2ef; 
-    padding:30px; 
-    border-radius:15px; 
-    text-align:center; 
-    box-shadow:0 0 20px rgba(255,140,0,0.2); 
-    transition:all 0.5s;
-    flex: 1 1 200px; /* Allows cards to shrink/grow but maintains a min width */
-    max-width: 250px;
+    background: linear-gradient(135deg, #e9f7f4, #ffffff);
+    padding: 35px 25px;
+    border-radius: 18px;
+    text-align: center;
+    width: 260px;
+
+    backdrop-filter: blur(6px); /* glass effect */
+    border: 1px solid rgba(153, 102, 51, 0.15);
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    transition: all 0.45s ease;
+
+    position: relative;
+    overflow: hidden;
 }
-.service-card:hover {transform:translateY(-10px); box-shadow:0 0 40px rgba(255,140,0,0.6);}
-.service-card h3 {color:#996633; margin-bottom:15px; font-size:22px;}
-.service-card p {color:#050A30; opacity:0.9;}
+
+/* Floating highlight effect */
+.service-card::before {
+    content: "";
+    position: absolute;
+    top: -40%;
+    left: -40%;
+    width: 180%;
+    height: 180%;
+    background: radial-gradient(circle, rgba(255,140,0,0.25), transparent 70%);
+    opacity: 0;
+    transition: 0.5s ease;
+    transform: scale(0.3);
+}
+
+.service-card:hover::before {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Card hover motion */
+.service-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 20px 45px rgba(255,140,0,0.45);
+}
+
+/* Title */
+.service-card h3 {
+    color: #996633;
+    margin-bottom: 18px;
+    font-size: 24px;
+    letter-spacing: 0.5px;
+}
+
+/* Text */
+.service-card p {
+    color: #050A30;
+    opacity: 0.85;
+    font-size: 17px;
+    line-height: 1.5;
+}
+
+/* Icon style upgrade */
+.service-icon {
+    font-size: 46px;
+    margin-bottom: 18px;
+    color: #FF8C00;
+    text-shadow: 0 0 12px rgba(255,140,0,0.4);
+    transition: 0.4s ease;
+}
+
+.service-card:hover .service-icon {
+    transform: scale(1.2) rotate(5deg);
+}
+
+
+/* -------------------- GALLERY (NEW CAROUSEL STYLE) -------------------- */
+.gallery-container {
+  max-width: 900px;
+  margin: auto;
+  position: relative;
+  overflow: hidden;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+.gallery-slide {
+  display: none;
+  width: 100%;
+}
+
+.gallery-slide img {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+.gallery-slide img:hover {
+  transform: scale(1.05);
+}
+
+/* Next/Prev buttons */
+.gallery-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 12px 18px;
+  background: rgba(0,0,0,0.4);
+  color: #fff;
+  font-size: 22px;
+  font-weight: bold;
+  border-radius: 50%;
+  cursor: pointer;
+  user-select: none;
+  transition: 0.3s;
+}
+.gallery-btn:hover {
+  background: rgba(0,0,0,0.7);
+}
+
+.gallery-prev { left: 15px; }
+.gallery-next { right: 15px; }
+
+/* Thumbnail bar */
+.gallery-thumbs {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 15px;
+}
+.gallery-thumbs img {
+width: 200px;   
+  
+  object-fit: cover;
+  border-radius: 10px;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: 0.3s;
+}
+.gallery-thumbs img.active-thumb,
+.gallery-thumbs img:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
 
 /* -------------------- MENU -------------------- */
 .menu-section {max-width:1000px;margin:auto;}
@@ -91,8 +221,146 @@ textarea {resize:none; height:120px;}
 button.form-btn {padding:15px; border:none; border-radius:8px; background:#996633; color:#fff; font-weight:bold; cursor:pointer; font-size:18px; transition:0.3s; box-shadow:0 0 20px #996633;}
 button.form-btn:hover {transform:scale(1.05); box-shadow:0 0 40px #996633;}
 
-/* -------------------- FLOATING PARTICLES (REMOVED) -------------------- */
-/* .particle and @keyframes float have been removed */
+/* -------------------- CONTACT & BOOKING & DIRECTIONS — NEW UNIFIED DESIGN -------------------- */
+
+.contact-form,
+.booking-form,
+.directions-form {
+    max-width: 550px;
+    margin: auto;
+    background: #ffffffcc;
+    padding: 35px 30px;
+    border-radius: 18px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(153,102,51,0.25);
+    animation: fadeInUp 0.8s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+@keyframes fadeInUp {
+  from {opacity: 0; transform: translateY(30px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+/* Shared input styling */
+.contact-form input,
+.contact-form textarea,
+.booking-form input,
+.booking-form select,
+.directions-form input,
+.directions-form select {
+    padding: 14px 14px 14px 45px; 
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 16px;
+    background: #f8fdfb;
+    transition: 0.3s ease;
+    color: #050A30;
+}
+
+/* Labels for all forms */
+.contact-form label,
+.booking-form label,
+.directions-form label {
+    font-size: 15px;
+    font-weight: 600;
+    color: #996633;
+    margin-bottom: 6px;
+    display: block;
+    letter-spacing: 0.3px;
+}
+
+/* Focus state */
+.contact-form input:focus,
+.contact-form textarea:focus,
+.booking-form input:focus,
+.booking-form select:focus,
+.directions-form input:focus,
+.directions-form select:focus {
+    border-color: #996633;
+    box-shadow: 0 0 10px rgba(153,102,51,0.4);
+}
+
+/* Input wrapper with icons */
+.input-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-wrapper i {
+    position: absolute;
+    left: 15px;
+    bottom: 14px;
+    font-size: 18px;
+    color: #996633;
+    opacity: 0.8;
+}
+
+/* Contact form icon handling — adds icons automatically */
+.contact-form input,
+.contact-form textarea {
+    padding-left: 45px !important;
+}
+
+/* Contact form added icons */
+.contact-form input[name="entry.586143677"] + i,
+.contact-form input[name="entry.899852286"] + i,
+.contact-form textarea + i {
+    display: block;
+}
+
+/* Rounded textarea styling */
+.contact-form textarea {
+    height: 120px;
+    resize: none;
+}
+
+/* Booking row (date + time) */
+.booking-row {
+    display: flex;
+    gap: 15px;
+}
+.booking-row .input-wrapper {
+    flex: 1;
+}
+
+/* Buttons */
+button.form-btn {
+    padding: 15px;
+    width: 100%;
+    background: #996633;
+    color: #fff;
+    font-weight: 700;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    letter-spacing: .5px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    box-shadow: 0 0 20px rgba(153,102,51,0.5);
+}
+
+button.form-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 40px rgba(153,102,51,0.8);
+}
+
+/* Directions form icon look */
+.directions-form input,
+.directions-form select {
+    padding-left: 45px;
+}
+
+/* Add icons to directions form */
+#origin-input {
+    background-image: url('data:image/svg+xml;utf8,🚩');
+}
+
+
 </style>
 
 <script>
@@ -147,6 +415,38 @@ function handleDirections(e){
 
     alert(`Opening Google Maps with your route for ${mode} in a new tab!`);
 }
+
+// -------------------- GALLERY CAROUSEL SCRIPT --------------------
+let slideIndex = 1;
+showSlides(slideIndex);
+
+function changeSlide(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  let slides = document.querySelectorAll(".gallery-slide");
+  let thumbs = document.querySelectorAll(".gallery-thumbs img");
+
+  if (n > slides.length) slideIndex = 1;
+  if (n < 1) slideIndex = slides.length;
+
+  slides.forEach(s => s.style.display = "none");
+  thumbs.forEach(t => t.classList.remove("active-thumb"));
+
+  slides[slideIndex - 1].style.display = "block";
+  thumbs[slideIndex - 1].classList.add("active-thumb");
+}
+
+// Open full-size image in a new tab
+function openImage(src) {
+  window.open(src, "_blank");
+}
+
 </script>
 </head>
 
@@ -159,6 +459,7 @@ function handleDirections(e){
     <li><a id="nav-about" onclick="showPage('about')">About</a></li>
     <li><a id="nav-menu" onclick="showPage('menu')">Menu</a></li>
     <li><a id="nav-services" onclick="showPage('services')">Services</a></li>
+ <li><a id="nav-gallery" onclick="showPage('gallery')">Gallery</a></li>
     <li><a id="nav-book" onclick="showPage('book')">Book a Table</a></li>
     <li><a id="nav-directions" onclick="showPage('directions')">Get Directions</a></li>
     <li><a id="nav-contact" onclick="showPage('contact')">Contact</a></li>
@@ -223,50 +524,123 @@ function handleDirections(e){
 </section>
 
 <section id="services">
+  <div class="page-header">
+    <h1>Our Services</h1>
+    <p>Exclusive experiences for you and your guests.</p>
+  </div>
+
+  <div class="service-grid">
+
+    <div class="service-card">
+      <div class="service-icon">🧼</div>
+      <h3>Hygiene Promise</h3>
+      <p>Safety First: A guarantee of hygiene during food preparation.</p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">🌿</div>
+      <h3>Supporting Nature</h3>
+      <p>Using earthen materials instead of plastic.</p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">🔥</div>
+      <h3>Fresh Serving</h3>
+      <p>No stored gravies — freshly prepared for every order.</p>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">👨‍🍳</div>
+      <h3>Chef Experiences</h3>
+      <p>6 years of culinary experience.</p>
+    </div>
+
+  </div>
+</section>
+
+
+<section id="gallery">
   <div class="page-header">
-    <h1>Our Services</h1>
-    <p>Exclusive experiences for you and your guests.</p>
+    <h1>Gallery</h1>
+    <p>Luxury dining & exquisite dishes.</p>
   </div>
-  <div class="service-grid">
-    <div class="service-card">
-        <h3>Hygiene Promise</h3>
-        <p>Safety First: A guarantee of hygiene while food preparation </p>
-    </div>
-    <div class="service-card">
-        <h3>Supporting Nature</h3>
-        <p>Using earthen materials instead of plastic</p>
-    </div>
-    <div class="service-card">
-        <h3>Fresh Serving</h3>
-        <p>No stored gravies, made when the booking is done to serve you hot</p>
-    </div>
-    <div class="service-card">
-        <h3>Chef Experiences</h3>
-        <p>6 years of cooking experience</p>
-    </div>
-  </div>
+<div class="gallery-container">
+  <div class="gallery-slide"><img src="exterior.jpg" onclick="openImage('exterior.jpg')"></div>
+  <div class="gallery-slide"><img src="kitchen.jpg" onclick="openImage('kitchen.jpg')"></div>
+  <div class="gallery-slide"><img src="restaurant.jpg" onclick="openImage('restaurant.jpg')"></div>
+ <div class="gallery-slide"><img src="images.jpg" onclick="openImage('images.jpg')"></div>
+ 
+ 
+  <span class="gallery-btn gallery-prev" onclick="changeSlide(-1)">❮</span>
+  <span class="gallery-btn gallery-next" onclick="changeSlide(1)">❯</span>
+</div>
+
+<div class="gallery-thumbs">
+  <img src="exterior.jpg" onclick="currentSlide(1)">
+  <img src="kitchen.jpg" onclick="currentSlide(2)">
+  <img src="restaurant.jpg" onclick="currentSlide(3)">
+  <img src="images.jpg" onclick="currentSlide(4)">
+</div>
+
 </section>
 
 <section id="book">
-  <div class="page-header">
-    <h1>Reserve a Table</h1>
-    <p>Book your exclusive dining experience.</p>
-  </div>
-  <form id="bookingForm" class="booking-form" onsubmit="handleBooking(event)" action="https://docs.google.com/forms/d/e/1FAIpQLSchH4AVO9E6fDQr1QF53PFbAxF8YecOp1YKcG2uL2RTP7sv5A/formResponse" method="POST" target="hidden_frame">
-    <input type="text" placeholder="Your Name" required name="entry.586143677">
-    <input type="email" placeholder="Email Address" required name="entry.899852286">
-    <input type="date" required name="entry.321751066">
-    <input type="time" required name="entry.1619763212">
-    <select required name="entry.2094950380">
-      <option value="">Number of Guests</option>
-      <option value="1">1</option><option value="2">2</option>
-      <option value="3">3</option><option value="4">4</option>
-      <option value="5">5</option><option value="6+">6+</option>
-    </select>
-    <button type="submit" class="form-btn">Book Now</button>
-  </form>
-<iframe name="hidden_frame" id="hidden_frame" style="display:none"></iframe>
+  <div class="page-header">
+    <h1>Reserve a Table</h1>
+    <p>Book your exclusive dining experience.</p>
+  </div>
+
+  <form id="bookingForm" class="booking-form"
+        onsubmit="handleBooking(event)"
+        action="https://docs.google.com/forms/d/e/1FAIpQLSchH4AVO9E6fDQr1QF53PFbAxF8YecOp1YKcG2uL2RTP7sv5A/formResponse"
+        method="POST"
+        target="hidden_frame">
+
+    <div class="input-wrapper">
+      <label>Your Name</label>
+      <i>👤</i>
+      <input type="text" required name="entry.586143677" placeholder="Your Name">
+    </div>
+
+    <div class="input-wrapper">
+      <label>Email Address</label>
+      <i>📧</i>
+      <input type="email" required name="entry.899852286" placeholder="Email Address">
+    </div>
+
+    <div class="booking-row">
+
+      <div class="input-wrapper">
+        <label>Date</label>
+        <i>📅</i>
+        <input type="date" required name="entry.321751066">
+      </div>
+
+      <div class="input-wrapper">
+        <label>Time</label>
+        <i>⏰</i>
+        <input type="time" required name="entry.1619763212">
+      </div>
+
+    </div>
+
+    <div class="input-wrapper">
+      <label>Number of Guests</label>
+      <i>👥</i>
+      <select required name="entry.2094950380">
+        <option value="">Select Guests</option>
+        <option value="1">1</option><option value="2">2</option>
+        <option value="3">3</option><option value="4">4</option>
+        <option value="5">5</option><option value="6+">6+</option>
+      </select>
+    </div>
+
+    <button type="submit" class="form-btn">Book Now</button>
+  </form>
+
+  <iframe name="hidden_frame" id="hidden_frame" style="display:none"></iframe>
 </section>
+
 
 <section id="directions">
   <div class="page-header">
@@ -290,12 +664,31 @@ function handleDirections(e){
     <h1>Contact Us</h1>
     <p>We’d love to hear from you.</p>
   </div>
-  <form class="contact-form" onsubmit="handleContact(event)" action="https://docs.google.com/forms/d/e/1FAIpQLSdXGoYJrOmTK3ibH9D7XYSGhOde6v1Qwyqj-Yip--69l_l_yw/formResponse" method="POST" target="hidden_frame_contact">
-    <input type="text" placeholder="Your Name" required name="entry.586143677">
-    <input type="email" placeholder="Email Address" required name="entry.899852286">
-    <textarea placeholder="Your Message" required name="entry.1251793925"></textarea>
-    <button type="submit" class="form-btn">Send Message</button>
-  </form>
+  <form class="contact-form" onsubmit="handleContact(event)"
+action="https://docs.google.com/forms/d/e/1FAIpQLSdXGoYJrOmTK3ibH9D7XYSGhOde6v1Qwyqj-Yip--69l_l_yw/formResponse"
+method="POST" target="hidden_frame_contact">
+
+  <div class="input-wrapper">
+    <label>Your Name</label>
+    <i>👤</i>
+    <input type="text" required name="entry.586143677" placeholder="Your Name">
+  </div>
+
+  <div class="input-wrapper">
+    <label>Email Address</label>
+    <i>📧</i>
+    <input type="email" required name="entry.899852286" placeholder="Email Address">
+  </div>
+
+  <div class="input-wrapper">
+    <label>Your Message</label>
+    <i>💬</i>
+    <textarea required name="entry.1251793925" placeholder="Your Message"></textarea>
+  </div>
+
+  <button type="submit" class="form-btn">Send Message</button>
+</form>
+
 <iframe name="hidden_frame_contact" id="hidden_frame_contact" style="display:none"></iframe>
 </section>
 
